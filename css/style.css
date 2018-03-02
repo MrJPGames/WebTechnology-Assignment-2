@@ -1,0 +1,161 @@
+/* For all pages */
+@import url('https://fonts.googleapis.com/css?family=Anton');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,800i');
+
+body {
+    margin: 0;
+    color: white;
+    background-color: #222222; 
+    background-image: url('../img/back.png');
+    background-repeat: repeat;
+    min-height: 100vh;
+    font-size: 1.2em;
+    font-family: 'Open Sans';
+}
+
+#wrapper {
+    display: flex;
+    height: 100%;
+    min-height: 100vh;
+}
+
+a {
+    color: darkgoldenrod;
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(114, 84, 7);
+    text-decoration: underline;
+}
+
+.externalLink {
+    color: darkcyan;
+}
+
+.externalLink:hover {
+    color: rgb(1, 87, 87);
+}
+
+h1 {
+    font-size: 2em;
+    margin-top: 0;
+    text-align: center;
+}
+
+#articleTitle{
+    font-family: 'Anton', sans-serif;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin: 1em 0 0;
+}
+
+footer {
+    background-color: black;
+    text-align: center;
+    width: 100%;
+    line-height: 45px;
+    margin-top: -61px;
+    height: 45px;
+    font-size: 0.8em;
+}
+
+article, aside {
+    background-color: #111111;
+    z-index: 1;
+}
+
+aside {
+    padding: 10px;
+    position: fixed;
+    height: 100%;
+    width: 170px;
+}
+
+main {
+    width: 100%;
+    margin-bottom: 50px;
+    margin-left: 190px;
+}
+
+article {
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+#menu {
+    background-color: #111111;
+}
+
+#logo {
+    margin-left: 5%;
+    width: 90%;
+}
+
+.floatRight {
+    float: right;
+    margin-left: 10pt;
+}
+
+.floatLeft {
+    float: left;
+    margin-right: 10pt;
+}
+
+.youTubeVideo {
+    width: 560px;
+    height: 315px;
+    border: 0;
+}
+
+section ol {
+    font-family: 'Arial', sans-serif;
+}
+
+/* For page: Encryption */
+#endToEndEncryption {
+    min-height: 315px;
+}
+
+#publicKeyEncryption {
+    min-height: 300pt;
+}
+
+#publicKeyImage {
+    height: 300pt;
+}
+
+/* For page: Economics */
+#economicsImage {
+    width: 500px;
+    height: 500px;
+}
+
+/* For page: Home */
+td {
+    text-align: center;
+}
+
+td, th {
+    padding: 15px;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(226, 166, 35);
+}
+
+table, td, th {
+    border: 1px solid rgb(209, 177, 118);
+}
+caption {
+    font-style: italic;
+    color: rgb(226, 166, 35);
+}
+
+/* For page: Economics */
+#statistics{
+    min-height: 500px;
+}

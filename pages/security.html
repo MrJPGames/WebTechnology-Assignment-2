@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>IT Security - Security</title>
+        
+        <meta charset="utf-8">
+        <meta name="description" content="We cannot browse the internet anymore without thinking about security. The need
+                                          of security is due to the attacks that hackers exert. People lose money and or can
+                                          get blackmailed. So stable security is really essential these days. Examples of these attacks
+                                          are Phishing, DoS, Malware and Spoofing.">
+        <meta name="keywords" content="security, SQL injection, XSS, cross-site scripting, security statistics, 
+                                       encryption, history security, importance security, RSA, DDOS, 
+                                       DDOS-attacks, exploits, hacking, encryption key">
+        <meta name="author" content="Maarten">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="icon" href="../img/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <aside>
+                <header>
+                    <img id="logo" src="../img/logo.svg" alt="Security Logo">
+                    <h1>Menu</h1>
+                </header>
+                <nav id="menu">
+                    <p><a href="../index.html">Home</a></p>
+                    <p><a href="security.html">Security</a></p>
+                    <p><a href="history.html">History</a></p>
+                    <p><a href="importance.html">Importance</a></p>
+                    <p><a href="economics.html">Economics</a></p>
+                    <p><a href="encryption.html">Encryption</a></p>
+                </nav>
+            </aside>
+            <main>         
+                <article id="mainArticle">
+                    <h1 id="articleTitle">Security</h1>
+                    <p>
+                        Computer security, or more formally known as IT security, is defined as 'the protection
+                        of computer systems from the theft and damage to their hardware, software or information, 
+                        as well as from disruption or misdirection of the services they provide'.<sup><a href="#cite1">[1]</a></sup>
+                        Thus, protection includes the physical and software side. Security is a growing field of interest and
+                        importance because we are relying more and more on these devices. These devices are connected to the 
+                        Internet, and that brings a lot of trouble with it. In the next section we will discuss some common modern attacks.
+                    </p>
+                    <section>
+                        <iframe class="floatRight youTubeVideo" src="https://www.youtube.com/embed/BE4ytPyDW_Y" allowfullscreen></iframe>
+                        <h3 id="attacks">Common attacks</h3>
+                        <p>There are several kinds of security attacks, examples that we will discuss briefly:</p>
+                        <ul>
+                            <li><a href="#dos">DoS</a></li>
+                            <li><a href="#phishing">Phishing</a></li>
+                            <li><a href="#injection">SQL Injection</a></li>
+                            <li><a href="#malware">Malware</a></li>
+                            <li><a href="#spoofing">Spoofing</a></li>
+                        </ul>
+                        <p>
+                            For a more thorough explanation, please see the video on the right side.<sup><a href="#cite3">[3]</a></sup>
+                        </p>
+                    </section>
+                    <section id="dos">
+                        <h4>Denial-of-service attack</h4>
+                        <p>
+                            Denial of service attacks (DoS) are designed to make a machine or network resource unavailable 
+                            to its intended users. Attackers can deny service to individual victims, such as by 
+                            entering a wrong password enough times to cause the victims account to 
+                            be locked, or they may overload the capabilities of a machine or network and block all users 
+                            at once. This is an annoying type of attack. Even though a network attack from a single IP address can be blocked with
+                            the firewall, many forms of Distributed denial of service (DDoS) attacks are possible. As a result, the 
+                            attack comes in an overload and defending against it is much more difficult.<sup><a href="#cite2">[2]</a></sup>
+                        </p>
+                    </section>
+                    <section id="phishing">
+                        <h4>Phishing</h4>
+                        <p>
+                            Phishing is the attempt to acquire sensitive information. This could be your usernames, passwords &and; credit card data
+                            It happens often when you think you are visiting a legitimate website (say, your bank website) and try to login. Hence the
+                            word 'Phishing' - using a bait (website) to try to catch a victim (user filling in his/hers sensitive information). 
+                            Phishing is typically done in combination with <a href="#spoofing">spoofing</a>.<sup><a href="#cite4">[4]</a></sup> You could recognize phishing by the
+                            URL that you are visiting. The fake websites cannot fake the URL as if it resembled the legitimate website.
+                            Phishing exploits the weaknesses of the web security and is a technique of what we call 'Social engineering'.<sup><a href="#cite5">[5]</a></sup>
+                        </p>
+                    </section>
+                    <section id="injection">
+                        <h4>SQL Injection</h4>
+                        <p>
+                            SQL Injection is one of - or maybe the most - common technique for web hacking. It is based on providing 'unusual' input for the input fields, e.g. username and 
+                            password. The input could be for example the following string: ' OR '1'='1. This results in <strong>true</strong> and gives the 
+                            necessary information to the hacker.<sup><a href="#cite6">[6]</a></sup> See the picture below for a clear schema of this type of attack.<sup><a href="#cite7">[7]</a></sup>
+                        </p>
+                        <figure>
+                            <img src="https://image.slidesharecdn.com/sqlinjection-161129043146/95/sql-injection-10-638.jpg?cb=1480394085" alt="SQL Injection Schema">
+                            <figcaption>
+                                Figure 1 - SQL Injection Schema<br>
+                                Source: <a class="externalLink" rel="nofollow" href="https://image.slidesharecdn.com/sqlinjection-161129043146/95/sql-injection-10-638.jpg?cb=1480394085" target="_blank">SQL Injection presentation by T. Anoop</a>
+                            </figcaption>                                
+                        </figure>
+                    </section>
+                    <section id="malware">
+                        <h4>Malware</h4>
+                        <p>
+                            Malware stands for malicious software. This subject is so wide, you could fill books with it. We won't go that far. Malware can be viruses, ransomware, trojan horses, worms
+                            and more. The basic functionality of malware is that it takes the form of executable code. It is deliberately going against the flow of a computer - and requirements of the user
+                            behind it. The purpose of malware is to steal personal, financial or business information and use it against the victim. Some malware use a technique that is called 'click fraud'.
+                            The techique works by makign it look like an user (victim) clicks on an advertising link on a website, which then results in a reward for the advertiser him/herself (usually the 
+                            reward is money). In 2012 it was estimated that 70% of all active malware used this annoying technique.<sup><a href="#cite8">[8]</a></sup>
+                        </p>
+                    </section>
+                    <section id="spoofing">
+                        <h4>Spoofing</h4>
+                        <p>
+                            Spoofing is an attack whereby a person or a program pretends to be something else (false identity) and thus gain an illegal advantage. Spoofing could be used in the context of IP-addresses,
+                            websites, phone numbers and e-mail. Spam for instance, uses the spoofing technique for sending e-mails as if it came from another source. This could be used for example in combination with
+                            <a href="#phishing">phishing</a>. Other ways of spoofing is IP-address spoofing where the attacker adopts an IP-address from someone/something else. This is dangerous because the attacker 
+                            could get unauthorized access to a computer, or even takeover that computer.<sup><a href="#cite9">[9]</a></sup><sup><a href="#cite10">[10]</a></sup>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>References</h3>
+                        <ol>
+                            <li id="cite1"><a class="externalLink" rel="nofollow" href="https://en.wikipedia.org/wiki/Computer_security" 
+                                target="_blank">Wikipedia's definition for IT security</a></li>
+                            <li id="cite2"><a class="externalLink" rel="nofollow" href="https://www.csa.gov.sg/gosafeonline/go-safe-for-business/smes/distributed-denial-of-service-attack" 
+                                target="_blank">DDoS article about GOsafeonline</a></li>
+                            <li id="cite3"><a class="externalLink" rel="nofollow" href="https://www.youtube.com/watch?v=BE4ytPyDW_Y" 
+                                target="_blank">YouTube video about common attacks</a></li>
+                            <li id="cite4"><a class="externalLink" rel="nofollow" href="https://en.wikipedia.org/wiki/Phishing" 
+                                target="_blank">Wikipedia's definition for phishing</a></li>
+                            <li id="cite5"><a class="externalLink" rel="nofollow" href="https://en.wikipedia.org/wiki/Social_engineering_(security)" 
+                                target="_blank">Wikipedia's explanation of social engineering</a></li>
+                            <li id="cite6"><a class="externalLink" rel="nofollow" href="https://www.w3schools.com/sql/sql_injection.asp" 
+                                target="_blank">W3schools explanation for SQL Injection</a></li>
+                            <li id="cite7"><a class="externalLink" rel="nofollow" href="https://image.slidesharecdn.com/sqlinjection-161129043146/95/sql-injection-10-638.jpg?cb=1480394085" 
+                                target="_blank">SQL Injection schema picture</a></li>
+                            <li id="cite8"><a class="externalLink" rel="nofollow" href="https://en.wikipedia.org/wiki/Malware" 
+                                target="_blank">Wikipedia's definition for malware</a></li>
+                            <li id="cite9"><a class="externalLink" rel="nofollow" href="https://en.wikipedia.org/wiki/Spoofing_attack" 
+                                target="_blank">Wikipedia's definition for spoofing</a></li>
+                            <li id="cite10"><a class="externalLink" rel="nofollow" href="https://nl.wikipedia.org/wiki/Internet_protocol_spoofing" 
+                                target="_blank">Wikipedia's definition for IP-spoofing</a></li>
+                        </ol>
+                    </section>
+                </article>
+            </main>
+        </div>
+        <footer>
+            <p>&copy; 2018 Maarten & Jasper</p>
+        </footer>
+    </body>
+</html>

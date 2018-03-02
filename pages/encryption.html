@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>IT Security - Encryption</title>
+        
+        <meta charset="utf-8">
+        <meta name="description" content="Encryption ensures that one party can safely communicate a message or piece of 
+                                          data from one system to another. We often see this explained as stoping people 
+                                          from interfere in this communication. However this is not entirely accurate.
+                                          As encryption itself does not stop any third party from seeing the encrypted data.
+                                          What encryption does achieve however is that this third party is unable to view the actual data.
+                                          And it also protects against any third party sending data pretending to be someone they are not.
+                                          In this way though a third party can still interfere with the communications, because these 
+                                          are unintelligable for them it is has the same result as if they were unable to interfere.">
+        <meta name="keywords" content="security, SQL injection, XSS, cross-site scripting, security statistics, 
+                                       encryption, history security, importance security, RSA, DDOS, 
+                                       DDOS-attacks, exploits, hacking, encryption key">
+        <meta name="author" content="Jasper">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="../img/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <aside>
+                <header>
+                    <img id="logo" src="../img/logo.svg" alt="Security Logo">
+                    <h1>Menu</h1>
+                </header>
+                <nav id="menu">
+                    <p><a href="../index.html">Home</a></p>
+                    <p><a href="security.html">Security</a></p>
+                    <p><a href="history.html">History</a></p>
+                    <p><a href="importance.html">Importance</a></p>
+                    <p><a href="economics.html">Economics</a></p>
+                    <p><a href="encryption.html">Encryption</a></p>
+                </nav>
+            </aside>
+            <main>
+                <article id="mainArticle">
+                    <h1 id="articleTitle">Encryption</h1>
+                    <section>
+                        <h3>Introduction</h3>
+                        <p>
+                            Encryption ensures that one party can safely communicate a message or piece of 
+                            data from one system to another. We often see this explained as stoping people 
+                            from interfere in this communication. However this is not entirely accurate.
+                            As encryption itself does not stop any third party from seeing the encrypted data.
+                            What encryption does achieve however is that this third party is unable to view the actual data.
+                            And it also protects against any third party sending data pretending to be someone they are not.
+                            In this way though a third party can still interfere with the communications, because these 
+                            are unintelligable for them it is has the same result as if they were unable to interfere.
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Different forms of encryption</h3>
+                        <p>
+                            There are a ton of different encryption algorithms.
+                            Some of them have become depricated because they have been broken.
+                            But even the currently used list of algorithms used for encryption is very extensive.
+                            For this reason we are only going to go into the biggest categories of encryption algorithms.
+                            Detail the basic way in which they work and detail what their primary use is.
+                        </p>
+                        <section id="publicKeyEncryption">
+                            <h4>Public key encryption</h4>
+                            <figure class="floatRight">
+                                <img id="publicKeyImage" src="https://www.usna.edu/CyberDept/sy110/lec/cryptAsymmEnc/img/both.png" alt="Public key encryption schema">
+                                <figcaption>
+                                    Figure 1 - Public Key Encryption Schema<br>
+                                    Source: <a class="externalLink" rel="nofollow" href="https://www.usna.edu/CyberDept/sy110/lec/cryptAsymmEnc/img/both.png" target="_blank">United States Naval Acadamy</a>
+                                </figcaption>
+                            </figure>
+                            <p>
+                                Public key encryption sometimes also known as asymmetrical crytography is a form of encryption that uses a key pair, one public key and one private key.<sup><a href="#cite3">[3]</a></sup>
+                                The public key is not secret and can be known by anyone without it comprimising the security of the encyprtion.
+                                The pirvate key should only be known by the owner.
+                                The private key is the key that can be used to unscramble data that was scrambled by the public key.
+                                This way anyone can encode data in a way where only the owner of the private key of the key pair can unscramble the data.
+                                This is handy as the public key can be sent over an unsecured channel without any problem because the public key is not and does not have to be secret.
+                            </p>
+                            <p>
+                                One problem with public key encryption is that is only one way.
+                                With one keypair anyone can securly communicate to one system.
+                                However communication the other way around cannot be encypted with the private key, because it would allow anyone to decrypt it with the public key, making it once more unsecure.
+                                Luckily this can be solved pretty simply.
+                                If two parties want to communicate securly using public key encryption they can just exchange their public key.
+                                Now we have two key pairs.
+                                Both parties can use the others public key for encrypting data and their own private key for decrypting the data.
+                                In this way two-way secure communcation can happen.
+                            </p>
+                            <p>
+                                However public key encyption can also be used for other things than secure communications.
+                                For instance it can be used to do signing.
+                                Signing is where the origin of a message can be verified.
+                                We just established it as a problem that when the private key is used to encypt data anyone can decrypt it with the public key.
+                                However this can also be used to verify that the sender is who they say they are.
+                                Because the private key is secret in thoery only the owner of the key should have it and as such only they should be able to encrypt data with it.
+                                This way someone receiving data from them can use the public key to decrypt the data and if it unscrambles it succesfully that means it must have been encrypted by the actual machine and not an impersonator.
+                                Of course someone might want to be able to verify this but also not want anyone else to be able to read the data.
+                                For this they again exchange their public keys.
+                                The person wanting to send data first encrypts the data with their private key.
+                                Then they encrypt the encrytped data with the others public key.
+                                This way only the intended recipient can decrypt the first 'layer', than they use the others public key to decrypt the rest.
+                                This then verifies the sender is who they say they are aswell as making it impossible for people inbetween to read the data.
+                            </p>
+                            <p>
+                                Another use for signing we see in computer sience is the signing of applications.
+                                This is usually necessairy for closed platforms but is often also used in open platforms.
+                                For instance windows applications can be signed.
+                                In that case they would be signed by Microsoft.
+                                The public key is included in every copy of Windows so it can verify if the software was correctly signed.
+                                This way a published of software can get their software signed by Microsoft and the user will be able to see it was really this publisher who made this piece of software.
+                                This way not just anyone can publish their potetially harmful software under a legitimate publishers name.
+                                For closed systems it also not just used for this purpose but also to verify that the owner of the closed system allows for your device to run this software.
+                                An example of this is iOS, every piece of software it can run has to be signed by apple or it will not boot.
+                                Of course modifications to the local system can allow for unsigned code to be ran, but this is a type of security breach unrelated to cryptography.
+                            </p>
+                        </section>
+                        <section>
+                            <h4>Symetric encryption</h4>
+                            <p>
+                                With symetric encryption unlike with public key encryption there is only the private key.
+                                In this case both parties need this key to both encrypt and decrypt their data.
+                                On clear downside of symetric encryption is the first step of the prosess.
+                                How do both parties get to know the private key.
+                                One way to do this is for the parties to use public key encryption instead, and then using it share the shared privated key they are going to use.
+                                However why if they have a public key encryption connection would they want to switch to symetric encryption afterwards?
+                                It's quite simple.
+                                Symetric encryption is faster.
+                                By using public key encryption only for the first step no one else can get ahold of the private key, but it can be used afterwards for faster and secure communication.
+                                Symetric encryption can of course also be used without using public key encryption first but for this there has to have been another secure way for the parties to have shared the private key.
+                            </p>
+                        </section>
+                    </section>
+                    <iframe class="floatRight youTubeVideo" src="https://www.youtube.com/embed/jkV1KEJGKRA" allowfullscreen></iframe>
+                    <section id="endToEndEncryption">
+                        <h3>End-to-End encryption</h3>
+                        <p>
+                            End-to-end encryption also refered to E2EE is an encryption system where the decryption of the encrypted data can only happen on the target system.<sup><a href="#cite1">[1]</a></sup>
+                            E2EE is widely used in messaging apps for this very reason.
+                            To make E2EE work both asymetric and symetric encryption are used.
+                            Symetric encryption is used to establish the shared private key after which all parties will use this private key to communicate.
+                            They key with E2EE is that the service provider does not know this private key, nor the private keys used for the public key encryption part.
+                            Because only the target system can decrypt the message even though the message has to go through the servers of the messaging app provider they are unable to decrypt your message.
+                            This makes the communication very secure agains hackers because even if they are able to compromise the servers of the apps developer they can still not read out or modify what is being sent.
+                            However it also means that goverment agencies cannot read this data.
+                            Most people prefer it this way and in the grand scheme of things encryption should not be banned for this reason as it is important that people cannot just be spied on by authorities.
+                            However the downside of this is that criminals are also able to use E2EE and with this are able to communicate with one another without the authorities being able to intercept their communications.
+                        </p>
+                        <p>
+                            For more info you can check out the video by <a class="externalLink" href="https://www.youtube.com/channel/UC9-y-6csu5WGm29I7JiwpnA" target="_blank">Computerphile</a> on the right.<sup><a href="#cite2">[2]</a></sup>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>References</h3>
+                        <ol>
+                            <li id="cite1"><a class="externalLink" rel="nofollow" href="https://en.wikipedia.org/wiki/End-to-end_encryption" 
+                                target="_blank">E2EE - Wikipedia</a></li>
+                            <li id="cite2"><a class="externalLink" rel="nofollow" href="https://www.youtube.com/watch?v=jkV1KEJGKRA" 
+                                target="_blank">End to End Encryption (E2EE) - Computerphile</a></li>
+                            <li id="cite3"><a class="externalLink" rel="nofollow" href="https://en.wikipedia.org/wiki/Public-key_cryptography" 
+                                target="_blank">Public-key cryptography - Wikipedia</a></li>
+                        </ol>
+                    </section>   
+                 </article>
+            </main>
+        </div>
+        <footer>
+            <p>&copy; 2018 Maarten & Jasper</p>
+        </footer>
+    </body>
+</html>

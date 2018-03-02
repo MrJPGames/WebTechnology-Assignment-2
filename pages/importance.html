@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>IT Security - Importance</title>
+        
+        <meta charset="utf-8">
+        <meta name="description" content="Cybersecurity is needed to protect three key parts: Secrecy, Integrity and Availability of computer systems. 
+                                          These have become increasingly important as more and more computer systems are being utilzed.
+                                          With more and more devices going on the internet, know as the Internet of Things, the attack surface for hackers has also increased.
+                                          Even cars have become a target for hackers as the computers inside them are getting increasingly complex, but also increasingly connected with the internet.">
+        <meta name="keywords" content="security, SQL injection, XSS, cross-site scripting, security statistics, 
+                                       encryption, history security, importance security, RSA, DDOS, 
+                                       DDOS-attacks, exploits, hacking, encryption key">
+        <meta name="author" content="Jasper, Maarten">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" href="../img/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <aside>
+                <header>
+                    <img id="logo" src="../img/logo.svg" alt="Security Logo">
+                    <h1>Menu</h1>
+                </header>
+                <nav id="menu">
+                    <p><a href="../index.html">Home</a></p>
+                    <p><a href="security.html">Security</a></p>
+                    <p><a href="history.html">History</a></p>
+                    <p><a href="importance.html">Importance</a></p>
+                    <p><a href="economics.html">Economics</a></p>
+                    <p><a href="encryption.html">Encryption</a></p>
+                </nav>
+            </aside>
+            <main>
+                <article id="mainArticle">
+                    <h1 id="articleTitle">Importance</h1>
+                    <iframe class="youTubeVideo floatRight" src="https://www.youtube.com/embed/7L9JerWIT3Y?rel=0" allowfullscreen></iframe>
+                    <p>Cybersecurity is needed to protect three key parts:</p>
+                    <ul>
+                        <li><a href="#secrecy">Secrecy</a></li>
+                        <li><a href="#integrity">Integrity</a></li>
+                        <li><a href="#availability">Availability of computer systems</a></li>
+                    </ul>
+                    <p>
+                        These have become increasingly important as more and more computer systems are being utilzed.
+                        With more and more devices going on the internet, know as the Internet of Things, the attack surface for hackers has also increased.
+                        Even cars have become a target for hackers as the computers inside them are getting increasingly complex, but also increasingly connected with the internet.
+                    </p>
+                    <section id="secrecy">
+                        <h3>Secrecy</h3>
+                        <p>
+                            Secrecy sometimes also know as confidentiality means that only people with the right permissions should be able to access certain data or computer systems.
+                            Secrecy is important because we would not want everyone to have access to all data stored in computer systems.
+                        </p>
+                        <p>
+                            For example when connected to a network only the specefic computer system you are sending your login credentials to should be able to read this data. However this is complicated due to the fact that many parts of the communication are also readable by other machines on the network.
+                            To solve this any secure login system uses <a href="encryption.html">encryption</a> for sending credentials over a network. This ensures that only the intended target machine can actually know what is being send. Encryption is not just used to protect login systems however. Many secure systems use encryption to protect their data from attackers.
+                        </p>
+                    </section>
+                    <section id="integrity">
+                        <h3>Integrity</h3>
+                        <p>
+                            Secrecy is just protection of who can or at least who should be able to read certain data.
+                            However in computer systems another important form of protection is needed in who can modify data.
+                            Only certain people should have access to write certain data in a computer system even in cases where everyone is allowed to read the data.
+                        </p>
+                        <p>
+                            An example of data that is publicly readable by anyone but not everyone should be allowed to edit is a webshop.
+                            Most parts of an online webshop are visable to any user visiting the website.
+                            However if all of those users were also allowed to edit the data they could for instance change the prices. 
+                            This should clearly not be allowed.
+                            To make sure not everyone can edit this data we use user systems. 
+                            Every user has a login they can use to get access to their account.
+                            This login system should be secure, to ensure no one else can get access to their account.
+                            Of course the people using the system are also part of this security if a user has a weak passord or leaks their passord somehwere it does not matter how secure the system itself is.
+                            When a user system is in place the webshop in this example can have only certain users have the permission to edit the data.
+                        </p>
+                    </section>
+                    <section id="availability">
+                        <h3>Availability of computer systems</h3>
+                        <p>
+                            A important part of security we often times forget is availability. 
+                            Availability in short means that people who have access to a certain computer system should always be able to access that system.
+                            However even though we often times forget this is part of security we see attacks on the availability of computer systems make headlines very often.
+                            When a major service gets hit with a DDOS attack this is really just an attack on the availabilty of that services computer system.
+                        </p>
+                        <p>
+                            But why is availability so important?
+                            When a DDOS attack on a video game server happens, sure it's annoying to the players wanting to play the game.
+                            But is it really a security issue?
+                            <br>
+                            Yes, and a very important one as well.
+                            When the availability of big services gets compromised this can cost millions of euros in lost profits and extra costs to get the system's availability back.
+                            But even if no money is lost in the process the protection of availability is still important.
+                            Because even though a DDOS attack results in a temporary loss of the availability of access to data or a computer system.
+                            More suffisticated attacks can cause permanant loss of data.
+                            In these cases even if the data does not result in a direct monetairy loss it can still cause a lot of damage.
+                            When you are for instance using a service to backup your personal data including photos.
+                            If this data gets removed this might not be an economic loss but is certainly a big loss!
+                        </p>
+                    </section>
+                    <section>
+                            <h3>References</h3>
+                            <ol>
+                                <li id="source1"><a class="externalLink" rel="nofollow" href="https://www.youtube.com/watch?v=bPVaOlJ6ln0" target="_blank">Cybersecurity: Crash Course Computer Science #31</a></li>
+                                <li id="source2"><a class="externalLink" rel="nofollow" href="https://www.youtube.com/watch?v=7L9JerWIT3Y" target="_blank">Why is Information Security important?</a></li>
+                            </ol>
+                        </section> 
+                </article>
+            </main>
+        </div>
+        <footer>
+            <p>&copy; 2018 Maarten & Jasper</p>
+        </footer>
+    </body>
+</html>
