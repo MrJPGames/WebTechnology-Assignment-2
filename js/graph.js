@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $.plot(
+    var plot = $.plot(
         $("#flot"),
         [
             {
@@ -31,6 +31,9 @@ $(document).ready(function () {
                     fill: false
                 }
             },
+            grid: {
+                hoverable: true
+            },
             xaxis: {
                 axisLabel: "Product name",
                 labelAngle: -90,
@@ -49,6 +52,33 @@ $(document).ready(function () {
             }
         }
     );
+});
+
+//Create tooltip element
+$("<div id='tooltip'></div>").css({
+    position: "absolute",
+    display: "none",
+    border: "1px solid #fdd",
+    padding: "2px",
+    color: "black",
+    "background-color": "white",
+    opacity: 0.80
+}).appendTo("body");
+
+//Hover interaction
+$("#flot").bind("plothover", function (event, pos, item) {
+    console.log(item);
+    if (item) {
+        var x = item.datapoint[0].toFixed(2),
+            y = item.datapoint[1].toFixed(2);
+
+        $("#tooltip").html(Math.round(y) + " exploits")
+            .css({top: item.pageY-Math.round($("#tooltip").height()+10), left: item.pageX-Math.round($("#tooltip").width()/2)})
+            .fadeIn(200);
+        console.log();
+    } else {
+        $("#tooltip").hide();
+    }
 });
 
 /*
