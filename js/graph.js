@@ -1,58 +1,61 @@
-$(document).ready(function () {
-    var plot = $.plot(
-        $("#flot"),
-        [
-            {
-                label: "Exploits disclosed",
-                data: [
-                    [0, 444],
-                    [1, 387],
-                    [2, 329],
-                    [3, 261],
-                    [4, 259],
-                    [5, 259],
-                    [6, 259],
-                    [7, 243],
-                    [8, 234],
-                    [9, 231]
-                ]
-            }
-        ]
-       ,
+//Create bar chart
+var plot = $.plot(
+    $("#flot"),
+    [
+        //Graph data [id, value]
         {
-            series: {  
-                bars: {
-                    show: true,
-                    align: "center",
-                    barWidth: 0.5
-                },      
-                points: {
-                    show: true,
-                    fill: false
-                }
-            },
-            grid: {
-                hoverable: true
-            },
-            xaxis: {
-                axisLabel: "Product name",
-                labelAngle: -90,
-                ticks: [
-                    [0, "Mac OS X"],
-                    [1, "iOS"],
-                    [2, "Flash Player"],
-                    [3, "Ubuntu Linux"],
-                    [4, "Air SDK"],
-                    [5, "AIR"],
-                    [6, "Air SDK & Compiler"],
-                    [7, "Opensuse"],
-                    [8, "Debian Linux"],
-                    [9, "Internet Explorer"]
-                ]
-            }
+            label: "Exploits disclosed",
+            data: [
+                [0, 444],
+                [1, 387],
+                [2, 329],
+                [3, 261],
+                [4, 259],
+                [5, 259],
+                [6, 259],
+                [7, 243],
+                [8, 234],
+                [9, 231]
+            ]
         }
-    );
-});
+    ]
+    ,
+    {
+        series: {  
+            //Set graph type to bars
+            bars: {
+                show: true,
+                align: "center",
+                barWidth: 0.5
+            },      
+            points: {
+                show: false,
+                fill: false
+            }
+        },
+        grid: {
+            //Make hoverable
+            hoverable: true
+        },
+        xaxis: {
+            axisLabel: "Product name",
+            labelAngle: -90,
+            //id -> name ([id, name])
+            ticks: [
+                [0, "Mac OS X"],
+                [1, "iOS"],
+                [2, "Flash Player"],
+                [3, "Ubuntu Linux"],
+                [4, "Air SDK"],
+                [5, "AIR"],
+                [6, "Air SDK & Compiler"],
+                [7, "Opensuse"],
+                [8, "Debian Linux"],
+                [9, "Internet Explorer"]
+            ]
+        }
+    }
+);
 
 //Create tooltip element
 $("<div id='tooltip'></div>").css({
@@ -72,6 +75,9 @@ $("#flot").bind("plothover", function (event, pos, item) {
         var x = item.datapoint[0].toFixed(2),
             y = item.datapoint[1].toFixed(2);
 
+        console.log(item.datapoint);
+
+        //Set hover text and location
         $("#tooltip").html(Math.round(y) + " exploits")
             .css({top: item.pageY-Math.round($("#tooltip").height()+10), left: item.pageX-Math.round($("#tooltip").width()/2)})
             .fadeIn(200);
@@ -80,18 +86,3 @@ $("#flot").bind("plothover", function (event, pos, item) {
         $("#tooltip").hide();
     }
 });
-
-/*
-[
-    ["Mac OS X", 444],
-    ["iOS", 387],
-    ["Flash Player", 329],
-    ["Ubuntu Linux", 261],
-    ["Air SDK", 259],
-    ["AIR", 259],
-    ["Air SDK & Compiler", 259],
-    ["Opensuse", 243],
-    ["Debian Linux", 234],
-    ["Internet Explorer", 231]
-]
-*/
