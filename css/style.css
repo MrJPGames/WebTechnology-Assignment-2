@@ -159,3 +159,19 @@ caption {
 #statistics{
     min-height: 500px;
 }
+
+
+/* For page: Graph */
+#flot{
+    width: 100%;
+    height: 400px;
+}
+
+/* Rotate the label */
+.flot-x-axis .flot-tick-label {
+    white-space: nowrap;
+    transform: translate(-9px, 0) rotate(-60deg);
+    text-indent: -100%;
+    transform-origin: top right;
+    text-align: right !important;
+}
