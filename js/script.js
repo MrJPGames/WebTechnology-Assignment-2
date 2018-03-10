@@ -1,38 +1,45 @@
 //This object creates the Context menu shown to user when right clicking page
 class ContextMenu {
     constructor(tagName, idName, elem, mX, mY){
+        //Set global variables (needed for accessing in event callbacks)
         window.currentElementTagName = tagName;
         window.currentElementID = idName;
+        window.currentElement = elem;
+
+        //Set object variables
         this.title = window.currentElementTagName;
         this.elem = elem;
-        window.currentElement = elem;
         this.posX = mX;
         this.posY = mY;
+        //Create context menu
         this.createContextMenuDom();
     }
 
     createContextMenuDom(){
-        //Create label element to use for all labels
-
         //Create main context menu element
         this.domContextMenu = document.createElement("div");
         this.domContextMenu.id = "ContextMenu";
+
         //Create title
         var titleNode = document.createElement("h1");
         titleNode.innerText = this.title;
         titleNode.style.color = "white";
         this.domContextMenu.appendChild(titleNode);
 
+        //Create sub title
         var subTitleNode = document.createElement("strong");
         subTitleNode.innerText = window.currentElementID + "\n";
         subTitleNode.id = "ContextMenuSubTitle";
         this.domContextMenu.appendChild(subTitleNode);
 
+        //Create speceficity combobox
         var speceficitySelectorNode = document.createElement("input");
         speceficitySelectorNode.type = "checkbox";
         speceficitySelectorNode.value = window.idSpecefic;
+        //Speceficity combobox functionality
         speceficitySelectorNode.onchange = function (e){
             window.idSpecefic = e.srcElement.checked;
+            //If current element has no ID set already create one
             if (window.currentElement.id == ''){
                 //Generate hopefully unique ID
                 window.currentElementID = generateUniqueID(12);
@@ -42,20 +49,25 @@ class ContextMenu {
         };
         this.domContextMenu.appendChild(speceficitySelectorNode);
 
+        //Create spececifity label
         var label1 = document.createElement("label");
         label1.innerHTML = "Only this part<br>";
         this.domContextMenu.appendChild(label1);
 
+        //Create color label
         var label2 = document.createElement("label");
         label2.innerText = "Color: ";
         this.domContextMenu.appendChild(label2);
 
+        //Create color input
         var inputColorNode = document.createElement("input");
         inputColorNode.type = "color";
         console.log(window.currentElement.style.color);
         inputColorNode.value = window.currentElement.style.color;
+        //Functionality of color input
         inputColorNode.onchange = function (e){
             var col = e.srcElement.value;
+            //Specefic or aspecefic style application
             if (window.idSpecefic === true){
                 changeCSS(window.currentElementTagName + "#" + window.currentElementID, "color", col);
             }else{
@@ -68,13 +80,16 @@ class ContextMenu {
         label3.innerText = "\nFont size: ";
         this.domContextMenu.appendChild(label3);
 
+        //Create font size selector
         var fontSizeSelector = document.createElement("input");
         fontSizeSelector.type = "range";
         fontSizeSelector.min = 1;
         fontSizeSelector.max = 200;
         fontSizeSelector.style.width = "100%";
+        //Funcionality of font size selector
         fontSizeSelector.onchange = function (e){
             var size = e.srcElement.value;
+            //Specefic or aspecefic style application
             if (window.idSpecefic === true){
                 changeCSS(window.currentElementTagName + "#" + window.currentElementID, "font-size", size + "px");
             }else{
@@ -88,6 +103,7 @@ class ContextMenu {
     }
 
     show(){
+        //Set style for Context Menu
         this.domContextMenu.style.display = "block";
         this.domContextMenu.style.position = "absolute";
         this.domContextMenu.style.backgroundColor = "darkgrey";
@@ -133,27 +149,38 @@ var style = document.createElement("style");
 document.head.appendChild(style);
 
 document.onclick = function (e){
-    console.log("test");
     var cMenu = document.getElementById("ContextMenu");
+    //Does a context menu exist
     if (cMenu !== null){
         var inMenu = false;
+        //Check if element higher up is the Context Menu
         e.path.forEach(function (elem){
             if (elem.id == "ContextMenu"){
                 inMenu = true;
             }
         });
+        //If click was not on context menu (aka outside context menu) close context menu
         if (!inMenu)
             cMenu.remove();
     }
 }
 //When right click is pressed
 document.oncontextmenu = function (e) {
-    console.log(e);
     var cMenu = document.getElementById("ContextMenu");
-    if (cMenu != null){
-        console.log("not NULL");
-        console.log(cMenu);
-        cMenu.remove();
+    //Does a context menu exist
+    if (cMenu !== null){
+        var inMenu = false;
+        //Check if element higher up is the Context Menu
+        e.path.forEach(function (elem){
+            if (elem.id == "ContextMenu"){
+                inMenu = true;
+            }
+        });
+        //If click was not on context menu (aka outside context menu) close context menu
+        if (!inMenu)
+            cMenu.remove();
+        else
+            return true;
     }
     
     contextMenu = new ContextMenu(e.srcElement.tagName, e.srcElement.id, e.srcElement, e.pageX, e.pageY); 
