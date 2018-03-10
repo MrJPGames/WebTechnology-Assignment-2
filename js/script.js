@@ -24,7 +24,8 @@ class ContextMenu {
         this.domContextMenu.appendChild(titleNode);
 
         var subTitleNode = document.createElement("strong");
-        subTitleNode.innerHTML = window.currentElementID + "<br>";
+        subTitleNode.innerText = window.currentElementID + "\n";
+        subTitleNode.id = "ContextMenuSubTitle";
         this.domContextMenu.appendChild(subTitleNode);
 
         var speceficitySelectorNode = document.createElement("input");
@@ -32,12 +33,11 @@ class ContextMenu {
         speceficitySelectorNode.value = window.idSpecefic;
         speceficitySelectorNode.onchange = function (e){
             window.idSpecefic = e.srcElement.checked;
-            console.log(window.currentElement.id);
             if (window.currentElement.id == ''){
-                console.log("Gen ID");
                 //Generate hopefully unique ID
-                window.currentElementID = Math.random().toString(36).substr(12);
+                window.currentElementID = generateUniqueID(12);
                 window.currentElement.id = window.currentElementID;
+                document.getElementById("ContextMenuSubTitle").innerText = window.currentElementID + "\n";
             }
         };
         this.domContextMenu.appendChild(speceficitySelectorNode);
@@ -52,34 +52,33 @@ class ContextMenu {
 
         var inputColorNode = document.createElement("input");
         inputColorNode.type = "color";
+        console.log(window.currentElement.style.color);
+        inputColorNode.value = window.currentElement.style.color;
         inputColorNode.onchange = function (e){
             var col = e.srcElement.value;
             if (window.idSpecefic === true){
-                console.log(window.currentElementTagName + "#" + window.currentElementID + "{color: " + col + "}");
-                style.sheet.insertRule(window.currentElementTagName + "#" + window.currentElementID + "{color: " + col + "}");
+                changeCSS(window.currentElementTagName + "#" + window.currentElementID, "color", col);
             }else{
-                style.sheet.insertRule(window.currentElementTagName + "{color: " + col + "}");
+                changeCSS(window.currentElementTagName, "color", col);
             }
         };
         this.domContextMenu.appendChild(inputColorNode);
         
         var label3 = document.createElement("label");
-        label3.innerText = "Font size: ";
+        label3.innerText = "\nFont size: ";
         this.domContextMenu.appendChild(label3);
 
         var fontSizeSelector = document.createElement("input");
         fontSizeSelector.type = "range";
         fontSizeSelector.min = 1;
         fontSizeSelector.max = 200;
+        fontSizeSelector.style.width = "100%";
         fontSizeSelector.onchange = function (e){
-            console.log(e);
             var size = e.srcElement.value;
             if (window.idSpecefic === true){
-                console.log(window.currentElementTagName + "#" + window.currentElementID + "{font-szie: " + size + "em}");
-                console.log(style.sheet.cssRules);
-                style.sheet.insertRule(window.currentElementTagName + "#" + window.currentElementID + "{font-szie: " + size + "em}", );
+                changeCSS(window.currentElementTagName + "#" + window.currentElementID, "font-size", size + "px");
             }else{
-                style.sheet.insertRule(window.currentElementTagName + "{font-size: " + size + "px;}");
+                changeCSS(window.currentElementTagName, "font-size", size + "px");
             }
         }
         this.domContextMenu.appendChild(fontSizeSelector);
@@ -104,10 +103,34 @@ class ContextMenu {
     }
 }
 
+//Modified from: https://stackoverflow.com/questions/1212500/create-a-css-rule-class-with-jquery-at-runtime
+function changeCSS(selector, property, value){
+    var s = style.sheet;
+    var rules = s.cssRules || s.rules;
+    for(var i = rules.length - 1, found = false; i >= 0 && !found; i--){
+        var r = rules[i];
+        if(r.selectorText == selector){
+            r.style.setProperty(property, value);
+            found = true;
+        }
+    }
+    if(!found){
+        s.insertRule(selector + '{' + property + ':' + value + ';}', rules.length);
+    }
+}
+
+function generateUniqueID(IDlen = 8){
+    var charBank = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var randomString = '';
+    for (var i = 0; i < IDlen ; i++) {
+        randomString += charBank[Math.round(Math.random() * charBank.length)];
+    }
+    return randomString;
+}
+
 
 var style = document.createElement("style");
 document.head.appendChild(style);
-
 
 document.onclick = function (e){
     console.log("test");
