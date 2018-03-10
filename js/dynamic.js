@@ -120,9 +120,9 @@ well as absolute in USD (dollars). We see an increasing spending over the years.
 
 
 //Method to add siblings to the parent node
-function addSibling (parent, obj) {
-    parent.appendChild(obj.title);
-    parent.appendChild(obj.section);
+function addSibling (obj) {
+    window.article.appendChild(obj.title);
+    window.article.appendChild(obj.section);
     if(obj instanceof ListText) 
         obj.section.appendChild(obj.ul);
     else if(obj instanceof ImageText) 
@@ -140,8 +140,16 @@ function retrieveGlobalVars(prefix) {
     }
     return globalVariables;
 } */
-addSibling($("main")[0], pageSecurity);
-addSibling($("main")[0], pageEncryption);
-addSibling($("main")[0], pageHistory);
-addSibling($("main")[0], pageImportance); 
-addSibling($("main")[0], pageEconomics); 
+
+//Put everything on page, create article first
+window.article = document.createElement("article");
+window.h1 = document.createElement("h1");
+window.h1.appendChild(document.createTextNode("Summary"));
+window.article.appendChild(window.h1);
+window.h1.setAttribute("id", "articleTitle")
+$("main")[0].appendChild(article);
+addSibling(pageSecurity);
+addSibling(pageEncryption);
+addSibling(pageHistory);
+addSibling(pageImportance); 
+addSibling(pageEconomics); 
