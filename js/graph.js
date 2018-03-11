@@ -1,6 +1,6 @@
 //Create bar chart
 var plot = $.plot(
-    $("#flot"),
+    $("#exploitsGraph"),
     [
         //Graph data [id, value]
         {
@@ -69,7 +69,7 @@ $("<div id='tooltip'></div>").css({
 }).appendTo("body");
 
 //Hover interaction
-$("#flot").bind("plothover", function (event, pos, item) {
+$("#exploitsGraph").bind("plothover", function (event, pos, item) {
     console.log(item);
     if (item) {
         var x = item.datapoint[0].toFixed(2),
