@@ -1,5 +1,5 @@
 //This object creates the Context menu shown to user when right clicking page
-class ContextMenu {
+class contextMenu {
     constructor(tagName, idName, elem, mX, mY){
         //Set global variables (needed for accessing in event callbacks)
         window.currentElementTagName = tagName;
@@ -35,6 +35,7 @@ class ContextMenu {
         //Create speceficity combobox
         var speceficitySelectorNode = document.createElement("input");
         speceficitySelectorNode.type = "checkbox";
+        speceficitySelectorNode.id = "speceficitySelectorInput";
         speceficitySelectorNode.value = window.idSpecefic;
         //Speceficity combobox functionality
         speceficitySelectorNode.onchange = function (e){
@@ -52,6 +53,7 @@ class ContextMenu {
         //Create spececifity label
         var label1 = document.createElement("label");
         label1.innerHTML = "Only this part<br>";
+        label1.setAttribute("for", "speceficitySelectorInput"); //Make label clickable
         this.domContextMenu.appendChild(label1);
 
         //Create color label
@@ -97,6 +99,52 @@ class ContextMenu {
             }
         }
         this.domContextMenu.appendChild(fontSizeSelector);
+
+        var fontWeightCombobox = document.createElement("input");
+        fontWeightCombobox.type = "checkbox";
+        fontWeightCombobox.id = "fontWeightInput";
+        fontWeightCombobox.onchange = function(e){
+            var bold = e.srcElement.checked;
+            var weight = 400; //Not bold
+            console.log(bold);
+            if (bold){
+                weight = 900; //Bold
+            }
+            if (window.idSpecefic === true){
+                changeCSS(window.currentElementTagName + "#" + window.currentElementID, "font-weight", weight);
+            }else{
+                changeCSS(window.currentElementTagName, "font-weight", weight);
+            }
+        }
+        this.domContextMenu.appendChild(fontWeightCombobox);
+
+        var label3 = document.createElement("label");
+        label3.innerText = "Bold\n";
+        label3.setAttribute("for", "fontWeightInput");
+        this.domContextMenu.appendChild(label3);
+
+        var fontItalicCombobox = document.createElement("input");
+        fontItalicCombobox.type = "checkbox";
+        fontItalicCombobox.id = "fontItalicInput";
+        fontItalicCombobox.onchange = function(e){
+            var italic = e.srcElement.checked;
+            var style = "normal"; //Not italic
+            if (italic){
+                style = "italic";
+            }
+            if (window.idSpecefic === true){
+                changeCSS(window.currentElementTagName + "#" + window.currentElementID, "font-style", style);
+            }else{
+                changeCSS(window.currentElementTagName, "font-style", style);
+            }
+        }
+        this.domContextMenu.appendChild(fontItalicCombobox);
+
+        var label3 = document.createElement("label");
+        label3.innerText = "Italic\n";
+        label3.setAttribute("for", "fontItalicInput");
+        this.domContextMenu.appendChild(label3);
+        
 
         //Add context menu to document
         document.body.appendChild(this.domContextMenu);
@@ -183,7 +231,7 @@ document.oncontextmenu = function (e) {
             return true;
     }
     
-    contextMenu = new ContextMenu(e.srcElement.tagName, e.srcElement.id, e.srcElement, e.pageX, e.pageY); 
+    contextMenu = new contextMenu(e.srcElement.tagName, e.srcElement.id, e.srcElement, e.pageX, e.pageY); 
 
     contextMenu.show();
     return false; //Stop normal context menu from opening
