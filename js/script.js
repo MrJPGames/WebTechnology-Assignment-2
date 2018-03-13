@@ -77,9 +77,10 @@ class contextMenu {
             }
         };
         this.domContextMenu.appendChild(inputColorNode);
+        this.domContextMenu.appendChild(document.createElement("br"));
         
         var label3 = document.createElement("label");
-        label3.innerText = "\nFont size:\n";
+        label3.innerText = "Font size:\n";
         this.domContextMenu.appendChild(label3);
 
         //Create font size selector
@@ -89,7 +90,6 @@ class contextMenu {
         fontSizeSelector.max = 200;
         //Set value to current font-size of element
         fontSizeSelector.value = window.getComputedStyle(window.currentElement).fontSize.slice(0,-2);
-        fontSizeSelector.style.width = "100%";
         //Funcionality of font size selector
         fontSizeSelector.onchange = function (e){
             var size = e.srcElement.value;
