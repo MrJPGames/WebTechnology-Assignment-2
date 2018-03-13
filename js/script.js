@@ -64,7 +64,7 @@ class contextMenu {
         //Create color input
         var inputColorNode = document.createElement("input");
         inputColorNode.type = "color";
-        console.log(window.getComputedStyle(window.currentElement).color);
+        //Set value to current color of element
         inputColorNode.value = rgb2hex(window.getComputedStyle(window.currentElement).color);
         //Functionality of color input
         inputColorNode.onchange = function (e){
@@ -87,6 +87,8 @@ class contextMenu {
         fontSizeSelector.type = "range";
         fontSizeSelector.min = 1;
         fontSizeSelector.max = 200;
+        //Set value to current font-size of element
+        fontSizeSelector.value = window.getComputedStyle(window.currentElement).fontSize.slice(0,-2);
         fontSizeSelector.style.width = "100%";
         //Funcionality of font size selector
         fontSizeSelector.onchange = function (e){
@@ -145,6 +147,98 @@ class contextMenu {
         label3.innerText = "Italic\n";
         label3.setAttribute("for", "fontItalicInput");
         this.domContextMenu.appendChild(label3);
+
+        var copyButton = document.createElement("div");
+        copyButton.innerText = "Copy";
+        copyButton.className = "contextMenuButton";
+        copyButton.onclick = function(e){
+            var textarea = document.createElement("textarea");
+            textarea.textContent = window.currentElement.innerText;
+            textarea.style.position = "fixed";  // Prevent scrolling
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand("copy");  // Security exception may be thrown by some browsers.
+            } catch (exception) {
+                //Log warning when copying to clipbaord is not possible
+                console.warn("Copy to clipboard failed.", exception);
+                return false;
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+        this.domContextMenu.appendChild(copyButton);
+
+        var pasteButton = document.createElement("div");
+        pasteButton.innerText = "Edit";
+        pasteButton.className = "contextMenuButton";
+        pasteButton.onclick = function(e){
+            //Create editing toolset:
+            var text = window.currentElement.innerHTML;
+            var textarea = document.createElement("textarea");
+            textarea.innerText = text;
+            textarea.style.width = "100%";
+            textarea.id = generateUniqueID(12);
+            window.currentElement.appendChild(textarea);
+
+            var okButton = document.createElement("button");
+            okButton.innerText = "Set changes";
+            okButton.id = "okButton";
+            okButton.setAttribute("textFieldID", textarea.id);
+            okButton.onclick = function(e){
+                //Set HTML to HTML from textarea
+                window.currentElement.innerHTML = document.getElementById(this.getAttribute("textFieldID")).value;
+
+                //Remove editing toolset
+                document.getElementById(this.getAttribute("textFieldID")).remove();
+                document.getElementById("cancelButton").remove();
+                this.remove();
+            }
+            window.currentElement.appendChild(okButton);
+
+            var cancelButton = document.createElement("button");
+            cancelButton.innerText = "Cancel";
+            cancelButton.id = "cancelButton";
+            cancelButton.setAttribute("textFieldID", textarea.id);
+            cancelButton.onclick = function(e){
+                //Remove editing toolset (without first setting innerHTML)
+                document.getElementById(this.getAttribute("textFieldID")).remove();
+                document.getElementById("okButton").remove();
+                this.remove();
+            }
+            window.currentElement.appendChild(cancelButton);
+
+            //Close context menu
+            var cMenu = document.getElementById("ContextMenu");
+            cMenu.remove();
+        }
+        this.domContextMenu.appendChild(pasteButton);
+
+        //Cut button
+        var cutButton = document.createElement("div");
+        cutButton.innerText = "Cut";
+        cutButton.className = "contextMenuButton";
+        cutButton.onclick = function(e){
+            window.currentElement.innerText;
+            var textarea = document.createElement("textarea");
+            textarea.textContent = window.currentElement.innerText;
+            textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand("copy");  // Security exception may be thrown by some browsers.
+            } catch (exception) {
+                //Log warning when copying to clipbaord is not possible
+                console.warn("Copy to clipboard failed.", exception);
+                return false;
+            } finally {
+                //If successful in copying to clipboard remove text as this is cut
+                window.currentElement.innerText="";
+                document.body.removeChild(textarea);
+            }
+        }
+        this.domContextMenu.appendChild(cutButton);
+
 
         //Set position
         this.domContextMenu.style.left = this.posX + "px";
