@@ -12,6 +12,9 @@ class contextMenu {
         this.posX = mX;
         this.posY = mY;
 
+        this.pageHeight = $(document).height();
+        this.pageWidth = $(document).width();
+
         //Create context menu
         this.createContextMenuDom();
     }
@@ -77,9 +80,10 @@ class contextMenu {
             }
         };
         this.domContextMenu.appendChild(inputColorNode);
+        this.domContextMenu.appendChild(document.createElement("br"));
         
         var label3 = document.createElement("label");
-        label3.innerText = "\nFont size:\n";
+        label3.innerText = "Font size:\n";
         this.domContextMenu.appendChild(label3);
 
         //Create font size selector
@@ -89,7 +93,6 @@ class contextMenu {
         fontSizeSelector.max = 200;
         //Set value to current font-size of element
         fontSizeSelector.value = window.getComputedStyle(window.currentElement).fontSize.slice(0,-2);
-        fontSizeSelector.style.width = "100%";
         //Funcionality of font size selector
         fontSizeSelector.onchange = function (e){
             var size = e.srcElement.value;
@@ -179,7 +182,8 @@ class contextMenu {
             textarea.innerText = text;
             textarea.style.width = "100%";
             textarea.id = generateUniqueID(12);
-            window.currentElement.appendChild(textarea);
+            var elem = window.currentElement;
+            elem.parentNode.insertBefore(textarea, elem.nextSibling);
 
             var okButton = document.createElement("button");
             okButton.innerText = "Set changes";
@@ -194,7 +198,7 @@ class contextMenu {
                 document.getElementById("cancelButton").remove();
                 this.remove();
             }
-            window.currentElement.appendChild(okButton);
+            textarea.parentNode.insertBefore(okButton, textarea.nextSibling);
 
             var cancelButton = document.createElement("button");
             cancelButton.innerText = "Cancel";
@@ -206,7 +210,7 @@ class contextMenu {
                 document.getElementById("okButton").remove();
                 this.remove();
             }
-            window.currentElement.appendChild(cancelButton);
+            okButton.parentNode.insertBefore(cancelButton, okButton.nextSibling);
 
             //Close context menu
             var cMenu = document.getElementById("ContextMenu");
@@ -239,13 +243,27 @@ class contextMenu {
         }
         this.domContextMenu.appendChild(cutButton);
 
-
-        //Set position
+        //Set  position
         this.domContextMenu.style.left = this.posX + "px";
         this.domContextMenu.style.top = this.posY + "px";
 
         //Add context menu to document
         document.body.appendChild(this.domContextMenu);
+
+        //When all is set and done let's check if the context menu would go outside the page
+        if (this.posY + Math.round(window.getComputedStyle(this.domContextMenu).height.slice(0,-2)) > this.pageHeight){
+            console.log("Detected height issue!");
+            this.posY = this.pageHeight - (Math.round(window.getComputedStyle(this.domContextMenu).height.slice(0,-2)) + 40);
+        }
+
+        if (this.posX + Math.round(window.getComputedStyle(this.domContextMenu).width.slice(0,-2)) > this.pageWidth){
+            console.log("Detected width issue!");
+            this.posX = this.pageWidth - (Math.round(window.getComputedStyle(this.domContextMenu).width.slice(0,-2)) + 20);
+        }
+        
+        //Set  position again in case the original placed it outside the page
+        this.domContextMenu.style.left = this.posX + "px";
+        this.domContextMenu.style.top = this.posY + "px";
     }
 }
 
