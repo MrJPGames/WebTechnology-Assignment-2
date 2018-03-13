@@ -11,6 +11,7 @@ class contextMenu {
         this.elem = elem;
         this.posX = mX;
         this.posY = mY;
+
         //Create context menu
         this.createContextMenuDom();
     }
@@ -23,7 +24,6 @@ class contextMenu {
         //Create title
         var titleNode = document.createElement("h1");
         titleNode.innerText = this.title;
-        titleNode.style.color = "white";
         this.domContextMenu.appendChild(titleNode);
 
         //Create sub title
@@ -64,8 +64,8 @@ class contextMenu {
         //Create color input
         var inputColorNode = document.createElement("input");
         inputColorNode.type = "color";
-        console.log(window.currentElement.style.color);
-        inputColorNode.value = window.currentElement.style.color;
+        console.log(window.getComputedStyle(window.currentElement).color);
+        inputColorNode.value = rgb2hex(window.getComputedStyle(window.currentElement).color);
         //Functionality of color input
         inputColorNode.onchange = function (e){
             var col = e.srcElement.value;
@@ -79,7 +79,7 @@ class contextMenu {
         this.domContextMenu.appendChild(inputColorNode);
         
         var label3 = document.createElement("label");
-        label3.innerText = "\nFont size: ";
+        label3.innerText = "\nFont size:\n";
         this.domContextMenu.appendChild(label3);
 
         //Create font size selector
@@ -99,6 +99,7 @@ class contextMenu {
             }
         }
         this.domContextMenu.appendChild(fontSizeSelector);
+        this.domContextMenu.appendChild(document.createElement("br"));
 
         var fontWeightCombobox = document.createElement("input");
         fontWeightCombobox.type = "checkbox";
@@ -144,28 +145,28 @@ class contextMenu {
         label3.innerText = "Italic\n";
         label3.setAttribute("for", "fontItalicInput");
         this.domContextMenu.appendChild(label3);
-        
+
+        //Set position
+        this.domContextMenu.style.left = this.posX + "px";
+        this.domContextMenu.style.top = this.posY + "px";
 
         //Add context menu to document
         document.body.appendChild(this.domContextMenu);
     }
-
-    show(){
-        //Set style for Context Menu
-        this.domContextMenu.style.display = "block";
-        this.domContextMenu.style.position = "absolute";
-        this.domContextMenu.style.backgroundColor = "darkgrey";
-        this.domContextMenu.style.width = "200px";
-        this.domContextMenu.style.height = "400px";
-        this.domContextMenu.style.padding = "10px";
-        this.domContextMenu.style.borderRadius = "5px";
-        this.domContextMenu.style.borderColor = "darkred"; 
-        this.domContextMenu.style.left = this.posX + "px";
-        this.domContextMenu.style.top = this.posY + "px";
-        this.domContextMenu.style.zIndex = "50";
-        console.log(this);
-    }
 }
+
+//Declare hex digits
+var hexDigits = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]; 
+
+//Function to convert rgb color to hex format
+function rgb2hex(rgb) {
+ rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+ return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function hex(x) {
+  return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+ }
 
 //Modified from: https://stackoverflow.com/questions/1212500/create-a-css-rule-class-with-jquery-at-runtime
 function changeCSS(selector, property, value){
@@ -231,9 +232,7 @@ document.oncontextmenu = function (e) {
             return true;
     }
     
-    contextMenu = new contextMenu(e.srcElement.tagName, e.srcElement.id, e.srcElement, e.pageX, e.pageY); 
-
-    contextMenu.show();
+    new contextMenu(e.srcElement.tagName, e.srcElement.id, e.srcElement, e.pageX, e.pageY); 
     return false; //Stop normal context menu from opening
 }
 
