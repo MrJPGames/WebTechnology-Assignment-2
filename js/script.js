@@ -179,7 +179,8 @@ class contextMenu {
             textarea.innerText = text;
             textarea.style.width = "100%";
             textarea.id = generateUniqueID(12);
-            window.currentElement.appendChild(textarea);
+            var elem = window.currentElement;
+            elem.parentNode.insertBefore(textarea, elem.nextSibling);
 
             var okButton = document.createElement("button");
             okButton.innerText = "Set changes";
@@ -194,7 +195,7 @@ class contextMenu {
                 document.getElementById("cancelButton").remove();
                 this.remove();
             }
-            window.currentElement.appendChild(okButton);
+            textarea.parentNode.insertBefore(okButton, textarea.nextSibling);
 
             var cancelButton = document.createElement("button");
             cancelButton.innerText = "Cancel";
@@ -206,7 +207,7 @@ class contextMenu {
                 document.getElementById("okButton").remove();
                 this.remove();
             }
-            window.currentElement.appendChild(cancelButton);
+            okButton.parentNode.insertBefore(cancelButton, okButton.nextSibling);
 
             //Close context menu
             var cMenu = document.getElementById("ContextMenu");
