@@ -12,13 +12,14 @@ class General {
     }
     //Create h3 section title 
     createTitle (head) {
-        this.title = document.createElement("H3");
+        this.title = document.createElement("h3");
         this.title.appendChild(document.createTextNode(head));
     }
-    //Content in a paragraph (within section)
+    //Content in a paragraph (within section), also the section has ID equal to the name
     createSection (content) {
-        this.section = document.createElement("SECTION");
-        this.paragraph = document.createElement("P");
+        this.section = document.createElement("section");
+        this.section.id = this.name;
+        this.paragraph = document.createElement("p");
         this.paragraph.appendChild(document.createTextNode(content));
         this.section.appendChild(this.paragraph);
     }
@@ -37,28 +38,28 @@ class ListText extends General {
     }
     //Create html list with list object
     createList() {
-        this.ul = document.createElement("UL");
+        this.ul = document.createElement("ul");
         
-        for (var key in this.list) {
-            this.li = document.createElement("LI");
-            this.listText = document.createTextNode(key + ' - ' + this.list[key]);
-            this.li.appendChild(this.listText);
-            //Append the list item to the ul
-            this.ul.appendChild(this.li);
+        for(var key in this.list) {
+                this.li = document.createElement("li");
+                this.listText = document.createTextNode(key + ' - ' + this.list[key]);
+                this.li.appendChild(this.listText);
+                //Append the list item to the ul
+                this.ul.appendChild(this.li);
         }
     }
 }
 
-//Economis page has statistic; an image
+//E.g. economis page has statistic; an image (could apply to other pages as well)
 class ImageText extends General {
     constructor (name , head, content, imagePath, alternative) {
         super (name, head, content);
-        //Only accept specific imagePath
+        //Only accept specific imagePath, accept only .jpg extension
         if (typeof imagePath === "string" && imagePath.endsWith(".jpg") && typeof alternative === "string") 
             this.createImage(imagePath, alternative); 
     }
     createImage(imagePath, alternative) {
-        this.img = document.createElement("IMG");
+        this.img = document.createElement("img");
         this.img.setAttribute("src", imagePath);
         this.img.setAttribute("alt", alternative);
     }
@@ -118,38 +119,53 @@ the spending on cyber security in the recent years (in the U.S.) as a percentage
 well as absolute in USD (dollars). We see an increasing spending over the years.`, 
 "http://publications.atlanticcouncil.org/cyberrisks//images/figure-8.jpg", "Cybersecurity spendings");
 
+//The object pageEconomics contains an image, we need to add a specific ID for the CSS.
+pageEconomics.img.id = "economicsImage";
+
 
 //Method to add siblings to the parent node
 function addSibling (obj) {
-    window.article.appendChild(obj.title);
     window.article.appendChild(obj.section);
+    obj.section.prepend(obj.title); //Title before everything
     if(obj instanceof ListText) 
         obj.section.appendChild(obj.ul);
     else if(obj instanceof ImageText) 
         obj.section.appendChild(obj.img);
 }
 
-/*THIS FUNCTION DOESNT WORK YET.............................
-//Put every object on the page: summary.html, first create an article
-//Loop through all global variables, adapted from: https://stackoverflow.com/questions/2226007/fetching-all-javascript-global-variables-in-a-page
-function retrieveGlobalVars(prefix) {
-    var globalVariables = [], global = window;
-    for (var value in global) {
-      if (value.indexOf(prefix) == 0) // check the prefix
-        globalVariables.push(global.variable);
-    }
-    return globalVariables;
-} */
-
-//Put everything on page, create article first
+//Create article
 window.article = document.createElement("article");
 window.h1 = document.createElement("h1");
 window.h1.appendChild(document.createTextNode("Summary"));
 window.article.appendChild(window.h1);
 window.h1.setAttribute("id", "articleTitle")
 $("main")[0].appendChild(article);
-addSibling(pageSecurity);
-addSibling(pageEncryption);
+
+//Have a menu to reference each object (list)
+function addMenu() {
+    var ul = document.createElement("ul");
+    for(var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] === "string") 
+        {
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            a.setAttribute("href", "#" + arguments[i]);
+            a.appendChild(document.createTextNode(arguments[i]));
+            li.appendChild(a);
+            ul.appendChild(li);
+        }
+    }
+    //Check if list items were created
+    if (ul.innerHTML !== "")
+        window.article.appendChild(ul);
+}
+
+//Create the menu
+addMenu(pageHistory.name, pageEncryption.name, pageImportance.name, pageSecurity.name, pageEconomics.name);
+
+//Append objects to article
 addSibling(pageHistory);
+addSibling(pageEncryption);
 addSibling(pageImportance); 
-addSibling(pageEconomics); 
+addSibling(pageSecurity);
+addSibling(pageEconomics);
