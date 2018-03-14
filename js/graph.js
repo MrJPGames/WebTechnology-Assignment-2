@@ -50,7 +50,8 @@ if ($("#exploitsGraph").exists()){
             },
             grid: {
                 //Make hoverable
-                hoverable: true
+                hoverable: true,
+                clickable: true
             },
             xaxis: {
                 axisLabel: "Product name",
@@ -88,6 +89,21 @@ if ($("#exploitsGraph").exists()){
         } else {
             $("#tooltip").hide();
         }
+    });
+
+    //Click interaction, change to red
+    $("#exploitGraph").bind("plotclick", function (event, pos, item) {
+        alert("You clicked at " + pos.x + ", " + pos.y);
+        console.log("HELP");
+
+        if (item) {
+            highlight(item.series, item.datapoint);
+            alert("You clicked a point!");
+            console.log("WAAROM GEBEURT HIER NIETS");
+        }
+
+        $("#tooltip").html(Math.round(y) + " exploits")
+        .css("color", "red");
     });
 }
 
@@ -141,7 +157,8 @@ if ($("#cybersecuritySpendingGraph").exists()){
                     show: true
                 },
                 grid: {
-                    hoverable: false
+                    hoverable: false,
+                    clickable: false
                 }
             }
         ]
@@ -155,7 +172,8 @@ if ($("#cybersecuritySpendingGraph").exists()){
             },
             grid: {
                 //Make hoverable
-                hoverable: true
+                hoverable: true,
+                clickable: true
             },
             yaxes: [
                 //yaxis:1
