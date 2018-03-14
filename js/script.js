@@ -1,3 +1,5 @@
+window.clipboard = null;
+
 //This object creates the Context menu shown to user when right clicking page
 class ContextMenu {
     constructor(tagName, idName, elem, mX, mY){
@@ -155,27 +157,35 @@ class ContextMenu {
         copyButton.innerText = "Copy";
         copyButton.className = "contextMenuButton";
         copyButton.addEventListener("click", e => {
-            var textarea = document.createElement("textarea");
-            textarea.textContent = window.currentElement.innerText;
-            textarea.style.position = "fixed";  // Prevent scrolling
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand("copy");  // Security exception may be thrown by some browsers.
-            } catch (exception) {
-                //Log warning when copying to clipbaord is not possible
-                console.warn("Copy to clipboard failed.", exception);
-                return false;
-            } finally {
-                document.body.removeChild(textarea);
-            }
+            window.clipboard = window.currentElement.innerText;
         });
         this.domContextMenu.appendChild(copyButton);
 
+        //Cut button
+        var cutButton = document.createElement("div");
+        cutButton.innerText = "Cut";
+        cutButton.className = "contextMenuButton";
+        cutButton.addEventListener("click", e => {
+            window.clipboard = window.currentElement.innerText;
+            window.currentElement.innerText="";
+        });
+        this.domContextMenu.appendChild(cutButton);
+
         var pasteButton = document.createElement("div");
-        pasteButton.innerText = "Edit";
+        pasteButton.innerText = "Paste";
         pasteButton.className = "contextMenuButton";
+        pasteButton.id = "";
         pasteButton.addEventListener("click", e => {
+            if (window.clipboard != null){
+                window.currentElement.innerText = window.clipboard;
+            }
+        });
+        this.domContextMenu.appendChild(pasteButton);
+
+        var editButton = document.createElement("div");
+        editButton.innerText = "Edit";
+        editButton.className = "contextMenuButton";
+        editButton.addEventListener("click", e => {
             //Create editing toolset:
             var text = window.currentElement.innerHTML;
             var textarea = document.createElement("textarea");
@@ -216,32 +226,7 @@ class ContextMenu {
             var cMenu = document.getElementById("ContextMenu");
             cMenu.remove();
         });
-        this.domContextMenu.appendChild(pasteButton);
-
-        //Cut button
-        var cutButton = document.createElement("div");
-        cutButton.innerText = "Cut";
-        cutButton.className = "contextMenuButton";
-        cutButton.addEventListener("click", e => {
-            window.currentElement.innerText;
-            var textarea = document.createElement("textarea");
-            textarea.textContent = window.currentElement.innerText;
-            textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand("copy");  // Security exception may be thrown by some browsers.
-            } catch (exception) {
-                //Log warning when copying to clipbaord is not possible
-                console.warn("Copy to clipboard failed.", exception);
-                return false;
-            } finally {
-                //If successful in copying to clipboard remove text as this is cut
-                window.currentElement.innerText="";
-                document.body.removeChild(textarea);
-            }
-        });
-        this.domContextMenu.appendChild(cutButton);
+        this.domContextMenu.appendChild(editButton);
 
         //Set  position
         this.domContextMenu.style.left = this.posX + "px";
