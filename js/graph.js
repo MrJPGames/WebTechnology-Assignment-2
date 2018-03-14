@@ -77,18 +77,14 @@ if ($("#exploitsGraph").exists()){
 
     //Hover interaction
     $("#exploitsGraph").bind("plothover", function (event, pos, item) {
-        console.log(item);
         if (item) {
             var x = item.datapoint[0].toFixed(2),
                 y = item.datapoint[1].toFixed(2);
-
-            console.log(item.datapoint);
 
             //Set hover text and location
             $("#tooltip").html(Math.round(y) + " exploits")
                 .css({top: item.pageY-Math.round($("#tooltip").height()+10), left: item.pageX-Math.round($("#tooltip").width()/2)})
                 .fadeIn(200);
-            console.log();
         } else {
             $("#tooltip").hide();
         }

@@ -114,7 +114,6 @@ class ContextMenu {
         fontWeightCombobox.addEventListener("change", e => {
             var bold = e.srcElement.checked;
             var weight = 400; //Not bold
-            console.log(bold);
             if (bold){
                 weight = 900; //Bold
             }
@@ -237,12 +236,10 @@ class ContextMenu {
 
         //When all is set and done let's check if the context menu would go outside the page
         if (this.posY + Math.round(window.getComputedStyle(this.domContextMenu).height.slice(0,-2)) > this.pageHeight){
-            console.log("Detected height issue!");
             this.posY = this.pageHeight - (Math.round(window.getComputedStyle(this.domContextMenu).height.slice(0,-2)) + 40);
         }
 
         if (this.posX + Math.round(window.getComputedStyle(this.domContextMenu).width.slice(0,-2)) > this.pageWidth){
-            console.log("Detected width issue!");
             this.posX = this.pageWidth - (Math.round(window.getComputedStyle(this.domContextMenu).width.slice(0,-2)) + 20);
         }
         
