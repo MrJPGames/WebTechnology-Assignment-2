@@ -1,5 +1,5 @@
 //This object creates the Context menu shown to user when right clicking page
-class contextMenu {
+class ContextMenu {
     constructor(tagName, idName, elem, mX, mY){
         //Set global variables (needed for accessing in event callbacks)
         window.currentElementTagName = tagName;
@@ -41,7 +41,7 @@ class contextMenu {
         speceficitySelectorNode.id = "speceficitySelectorInput";
         speceficitySelectorNode.value = window.idSpecefic;
         //Speceficity combobox functionality
-        speceficitySelectorNode.onchange = function (e){
+        speceficitySelectorNode.addEventListener("change", e => {
             window.idSpecefic = e.srcElement.checked;
             //If current element has no ID set already create one
             if (window.currentElement.id == ''){
@@ -50,7 +50,7 @@ class contextMenu {
                 window.currentElement.id = window.currentElementID;
                 document.getElementById("ContextMenuSubTitle").innerText = window.currentElementID + "\n";
             }
-        };
+        });
         this.domContextMenu.appendChild(speceficitySelectorNode);
 
         //Create spececifity label
@@ -70,7 +70,7 @@ class contextMenu {
         //Set value to current color of element
         inputColorNode.value = rgb2hex(window.getComputedStyle(window.currentElement).color);
         //Functionality of color input
-        inputColorNode.onchange = function (e){
+        inputColorNode.addEventListener("change", e => {
             var col = e.srcElement.value;
             //Specefic or aspecefic style application
             if (window.idSpecefic === true){
@@ -78,7 +78,7 @@ class contextMenu {
             }else{
                 changeCSS(window.currentElementTagName, "color", col);
             }
-        };
+        });
         this.domContextMenu.appendChild(inputColorNode);
         this.domContextMenu.appendChild(document.createElement("br"));
         
@@ -94,7 +94,7 @@ class contextMenu {
         //Set value to current font-size of element
         fontSizeSelector.value = window.getComputedStyle(window.currentElement).fontSize.slice(0,-2);
         //Funcionality of font size selector
-        fontSizeSelector.onchange = function (e){
+        fontSizeSelector.addEventListener("change", e => {
             var size = e.srcElement.value;
             //Specefic or aspecefic style application
             if (window.idSpecefic === true){
@@ -102,14 +102,14 @@ class contextMenu {
             }else{
                 changeCSS(window.currentElementTagName, "font-size", size + "px");
             }
-        }
+        });
         this.domContextMenu.appendChild(fontSizeSelector);
         this.domContextMenu.appendChild(document.createElement("br"));
 
         var fontWeightCombobox = document.createElement("input");
         fontWeightCombobox.type = "checkbox";
         fontWeightCombobox.id = "fontWeightInput";
-        fontWeightCombobox.onchange = function(e){
+        fontWeightCombobox.addEventListener("change", e => {
             var bold = e.srcElement.checked;
             var weight = 400; //Not bold
             console.log(bold);
@@ -121,7 +121,7 @@ class contextMenu {
             }else{
                 changeCSS(window.currentElementTagName, "font-weight", weight);
             }
-        }
+        });
         this.domContextMenu.appendChild(fontWeightCombobox);
 
         var label3 = document.createElement("label");
@@ -132,7 +132,7 @@ class contextMenu {
         var fontItalicCombobox = document.createElement("input");
         fontItalicCombobox.type = "checkbox";
         fontItalicCombobox.id = "fontItalicInput";
-        fontItalicCombobox.onchange = function(e){
+        fontItalicCombobox.addEventListener("change", e =>{
             var italic = e.srcElement.checked;
             var style = "normal"; //Not italic
             if (italic){
@@ -143,7 +143,7 @@ class contextMenu {
             }else{
                 changeCSS(window.currentElementTagName, "font-style", style);
             }
-        }
+        });
         this.domContextMenu.appendChild(fontItalicCombobox);
 
         var label3 = document.createElement("label");
@@ -154,7 +154,7 @@ class contextMenu {
         var copyButton = document.createElement("div");
         copyButton.innerText = "Copy";
         copyButton.className = "contextMenuButton";
-        copyButton.onclick = function(e){
+        copyButton.addEventListener("click", e => {
             var textarea = document.createElement("textarea");
             textarea.textContent = window.currentElement.innerText;
             textarea.style.position = "fixed";  // Prevent scrolling
@@ -169,13 +169,13 @@ class contextMenu {
             } finally {
                 document.body.removeChild(textarea);
             }
-        }
+        });
         this.domContextMenu.appendChild(copyButton);
 
         var pasteButton = document.createElement("div");
         pasteButton.innerText = "Edit";
         pasteButton.className = "contextMenuButton";
-        pasteButton.onclick = function(e){
+        pasteButton.addEventListener("click", e => {
             //Create editing toolset:
             var text = window.currentElement.innerHTML;
             var textarea = document.createElement("textarea");
@@ -189,40 +189,40 @@ class contextMenu {
             okButton.innerText = "Set changes";
             okButton.id = "okButton";
             okButton.setAttribute("textFieldID", textarea.id);
-            okButton.onclick = function(e){
+            okButton.addEventListener("click", e => {
                 //Set HTML to HTML from textarea
-                window.currentElement.innerHTML = document.getElementById(this.getAttribute("textFieldID")).value;
+                window.currentElement.innerHTML = document.getElementById(e.srcElement.getAttribute("textFieldID")).value;
 
                 //Remove editing toolset
-                document.getElementById(this.getAttribute("textFieldID")).remove();
+                document.getElementById(e.srcElement.getAttribute("textFieldID")).remove();
                 document.getElementById("cancelButton").remove();
-                this.remove();
-            }
+                e.srcElement.remove();
+            });
             textarea.parentNode.insertBefore(okButton, textarea.nextSibling);
 
             var cancelButton = document.createElement("button");
             cancelButton.innerText = "Cancel";
             cancelButton.id = "cancelButton";
             cancelButton.setAttribute("textFieldID", textarea.id);
-            cancelButton.onclick = function(e){
+            cancelButton.addEventListener("click", e => {
                 //Remove editing toolset (without first setting innerHTML)
-                document.getElementById(this.getAttribute("textFieldID")).remove();
+                document.getElementById(e.srcElement.getAttribute("textFieldID")).remove();
                 document.getElementById("okButton").remove();
-                this.remove();
-            }
+                e.srcElement.remove();
+            });
             okButton.parentNode.insertBefore(cancelButton, okButton.nextSibling);
 
             //Close context menu
             var cMenu = document.getElementById("ContextMenu");
             cMenu.remove();
-        }
+        });
         this.domContextMenu.appendChild(pasteButton);
 
         //Cut button
         var cutButton = document.createElement("div");
         cutButton.innerText = "Cut";
         cutButton.className = "contextMenuButton";
-        cutButton.onclick = function(e){
+        cutButton.addEventListener("click", e => {
             window.currentElement.innerText;
             var textarea = document.createElement("textarea");
             textarea.textContent = window.currentElement.innerText;
@@ -240,7 +240,7 @@ class contextMenu {
                 window.currentElement.innerText="";
                 document.body.removeChild(textarea);
             }
-        }
+        });
         this.domContextMenu.appendChild(cutButton);
 
         //Set  position
@@ -309,7 +309,7 @@ function generateUniqueID(IDlen = 8){
 var style = document.createElement("style");
 document.head.appendChild(style);
 
-document.onclick = function (e){
+document.addEventListener("click", e => {
     var cMenu = document.getElementById("ContextMenu");
     //Does a context menu exist
     if (cMenu !== null){
@@ -324,7 +324,8 @@ document.onclick = function (e){
         if (!inMenu)
             cMenu.remove();
     }
-}
+}, false);
+
 //When right click is pressed
 document.oncontextmenu = function (e) {
     var cMenu = document.getElementById("ContextMenu");
@@ -344,7 +345,7 @@ document.oncontextmenu = function (e) {
             return true;
     }
     
-    new contextMenu(e.srcElement.tagName, e.srcElement.id, e.srcElement, e.pageX, e.pageY); 
+    new ContextMenu(e.srcElement.tagName, e.srcElement.id, e.srcElement, e.pageX, e.pageY); 
     return false; //Stop normal context menu from opening
 }
 
