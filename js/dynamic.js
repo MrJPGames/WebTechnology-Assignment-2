@@ -20,7 +20,7 @@ class General {
         this.section = document.createElement("section");
         this.section.id = this.name.toLowerCase();
         this.paragraph = document.createElement("p");
-        this.paragraph.appendChild(document.createTextNode(content));
+        this.paragraph.innerHTML = content;
         this.section.appendChild(this.paragraph);
     }
 }
@@ -194,32 +194,38 @@ Starting in the 1960s, AT&T decided to closely monitor calls in order to catch �
 as they were called, used “blue boxes” to generate the right tone to get free calls. This surveillance eventually 
 led to 200 convictions. Not long after, a man named John Draper found a way to duplicate a tone using a blue box 
 and a toy whistle found in Cap’n Crunch cereal. The tone was used to unlock the AT&T network. 
-As serious as these threats were, the focus on phone networks would soon pave the way for greater risks to computers.`);
+As serious as these threats were, the focus on phone networks would soon pave the way for greater risks to computers.
+Please refer to <a href="#security">security</a> section to learn more about attacks/security.`);
 
 window.pageEncryption = new General("Encryption", "Encryption", `Encryption ensures that one party can safely communicate a message or piece of 
-data from one system to another. We often see this explained as stoping people 
+data from one system to another. We often see this explained as stopping people 
 from interfere in this communication. However this is not entirely accurate.
 As encryption itself does not stop any third party from seeing the encrypted data.
 What encryption does achieve however is that this third party is unable to view the actual data.
 And it also protects against any third party sending data pretending to be someone they are not.
+Please refer to <a href="#importance">importance</a> section 
+to learn more about the importance of cyber security.
 In this way though a third party can still interfere with the communications, because these 
 are unintelligable for them it is has the same result as if they were unable to interfere.`);
 
 window.pageImportance = new ListText("Importance", "Importance of security ▼", `Imporance has become increasingly important as more and 
 more computer systems are being utilzed. With more and more devices going on the internet, know as the Internet of Things, 
 the attack surface for hackers has also increased. Even cars have become a target for hackers as the computers inside 
-them are getting increasingly complex, but also increasingly connected with the internet. Click on the title to hide/unhide the list.`,window.importanceList);
+them are getting increasingly complex, but also increasingly connected with the internet. Please refer to <a href="#economics">economics</a> section 
+to learn more about the statistics of cyber security. Click on the title to hide/unhide the list.`,window.importanceList);
 
 window.pageSecurity = new ListText("Security", "Security attacks ▼", `Computer security, or more formally known as IT security, is defined as the protection 
 of computer systems from the theft and damage to their hardware, software or information, 
 as well as from disruption or misdirection of the services they provide
 Thus, protection includes the physical and software side. Security is a growing field of interest and
 importance because we are relying more and more on these devices. These devices are connected to the 
-Internet, and that brings a lot of trouble with it. Click on the title to hide/unhide the list.`, window.securityList); 
+Internet, and that brings a lot of trouble with it. Click on the title to hide/unhide the list.
+Please refer to <a href="#encryption">encryption</a> section to learn more about encryption.`, window.securityList); 
 
 window.pageEconomics = new ImageText("Economics", "Statistics about security ▼", `The image (click on title, to display) points out the statistics of 
 the spending on cyber security in the recent years (in the U.S.) as a percentage of the GDP as 
-well as absolute in USD (dollars). We see an increasing spending over the years.`, 
+well as absolute in USD (dollars). We see an increasing spending over the years.
+Please refer to <a href="#history">history</a> section to learn more about the history of hacking.`, 
 "http://publications.atlanticcouncil.org/cyberrisks//images/figure-8.jpg", "Cybersecurity spendings", "economicsImage");
 
 //Create the menu, which will create the article, which on its turn, will put all the necessary objects on the page
